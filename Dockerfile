@@ -1,9 +1,10 @@
 FROM chabad360/hugo
 
 RUN apk update && \
-  apk add --no-cache hugo && \
-  rm ./node_modules/hugo-bin/vendor/hugo && \
-  ln -s /usr/bin/hugo ./node_modules/hugo-bin/vendor/hugo
+apk add --no-cache \
+    gcompat \
+    libc6-compat && \
+    ln -s /lib/libc.so.6 /usr/lib/libresolv.so.2
 
 COPY ./docker-entrypoint.sh /entrypoint.sh
 
